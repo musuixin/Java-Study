@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          # RocketMq的地址
+          name-server: 192.168.0.100:9876
+      bindings:
+        # 设置输出到的topic与消息格式
+        output: {destination: test-topic, content-type: application/json}
+    nacos:
+      config:
+        server-addr: 192.168.0.100:8848
+        file-extension: yaml
+      discovery:
+        server-addr: 192.168.0.100:8848
+  application:
+    name: hello-alibaba-provider
+server:
+  port: 8090
+dubbo:
+  protocol:
+    # 协议名称
+    name: dubbo
+    #服务端口
+    port: 7100
+  registry:
+    # nacos注册中心
+    address: nacos://192.168.0.100:8848
+  application:
+    name: hello-alibaba-provider

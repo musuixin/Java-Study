@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.0.100:8848
+        file-extension: yaml
+      discovery:
+        server-addr: 192.168.0.100:8848
+  application:
+    name: hello-alibaba-oauth2
+server:
+  port: 8020

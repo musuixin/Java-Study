@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    password: 950405
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1/blog?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+logging:
+  level:
+    top.musuixin.mybatis.mapper: DEBUG
+  file:
+    path: F:\系统日志\spring-boot\springbootMybatis
+
+mybatis-plus:
+  configuration:
+    #配置延迟加载
+    lazy-loading-enabled: true
+    #是否积极延迟加载
+    aggressive-lazy-loading: false

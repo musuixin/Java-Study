@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    username: root
+    password: 950405
+    url: jdbc:mysql://127.0.0.1/start?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  level:
+    top.musuixin.mybatisplus.mapper: trace
+    root: warn
+  file:
+    path: F:\系统日志\spring-boot\hello
+

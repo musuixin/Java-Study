@@ -1,0 +1,44 @@
+spring:
+  cloud:
+    nacos:
+      # 远程配置文件
+      config:
+        server-addr: 192.168.0.100:8848
+        file-extension: yaml
+        # 服务发现
+      discovery:
+        server-addr: 192.168.0.100:8848
+    sentinel:
+      transport:
+        dashboard: 192.168.0.100:8858
+        client-ip: 192.168.0.1
+    stream:
+      rocketmq:
+        binder:
+          # 设置RocketMq地址
+          name-server: 192.168.0.100:9876
+      bindings:
+        # 设置topic、消息格式、group
+        input: {destination: test-topic, content-type: application/json,group: test-group}
+  application:
+    name: hello-alibaba-consumer
+security:
+  oauth2:
+    client:
+      client-id: password-client
+      client-secret: secret
+      access-token-uri: http://localhost:8020/oauth/token
+      user-authorization-uri: http://localhost:8020/oauth/authorize
+    resource:
+      token-info-uri: http://localhost:8020/oauth/check_token
+server:
+  port: 8000
+dubbo:
+  protocol:
+    name: dubbo
+    port: 7010
+  registry:
+    # nacos注册中心
+    address: nacos://192.168.0.100:8848
+  application:
+    name: hello-alibaba-consumer

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.musuixin.mybatis.mapper.BlogMapper">
+    <!--    CRUD-->
+    <!--    使用结果map-->
+    <resultMap id="blogResultMap" type="top.musuixin.mybatis.entity.Blog">
+        <id column="blog_id" property="blogId"/>
+    </resultMap>
+    <!--    在这里使用resultMap用来映射结果集-->
+    <select id="getbyId" resultMap="blogResultMap" parameterType="int">
+        select * from blog where blog.blog.blog_id=#{id}
+    </select>
+    <!--    在mybatis中#和$的主要区别是：#传入的参数在SQL中显示为字符串，#方式能够很大程-->
+    <!--    度防止sql注入；$传入的参数在SqL中直接显示为传入的值，$方式无法防止Sql注入。-->
+    <!--    使用$符传参时，如果参数是单值属性，并且只有一个参数，那么参数必须使用value占位-->
+    <select id="getBytitle" resultMap="blogResultMap" parameterType="string">
+        <!--    #是占位符，$是字符串拼接。因此使用$的时候,如果参数是字符串类型，那么要使用引号
+                一般在' '中使用$连接-->
+        <!--    尽量使用#而不是$-->
+        <!--    当参数表示表名或列名的时候，只能使用$-->
+        <!--        lower() 将字母转换成小写-->
+        select * from blog where lower(titile) like lower('%${value}%')
+    </select>
+    <select id="selectBlogSort" parameterType="string" resultMap="blogResultMap">
+        select * from blog order by ${value}
+    </select>
+    <select id="selectBlogByPage" resultMap="blogResultMap">
+        select * from blog limit #{offest},#{pageSize}
+    </select>
+    <!--    使用map传递多参数-->
+    <select id="selectBlogByPage3" resultMap="blogResultMap">
+       select * from blog limit #{offest},#{pageSize}
+    </select>
+    <!--    获取自增ID，注：将会自动返回到传入的参数中 -->
+    <insert id="getinsertBlogId" parameterType="top.musuixin.mybatis.entity.Blog" useGeneratedKeys="true"
+            keyProperty="blogId">
+        <!--            <selectKey>-->
+        <!--orcale 等数据库不支持自动增加id的时候使用&ndash;&gt;-->
+        <!--            </selectKey>-->
+        insert into blog (title, author_id, state, featured, style) values
+        (#{title},#{authorId},#{state},#{featured},#{style})
+    </insert>
+    <!--    sql片段-->
+    <sql id="tableNmaeSet">
+        title=#{title},author_id=#{authorId},state=#{state},featured=#{featured},style=#{style}
+    </sql>
+    <update id="updateBlog">
+        update blog set
+        <include refid="tableNmaeSet"/>
+        where blog_id=#{blogId}
+    </update>
+    <delete id="deleteBlogById">
+            delete from blog where blog_id=#{id}
+    </delete>
+    <!--    动态sql-->
+    <!--    if (choose when otherwise //一般在一起使用) where（代替where） set（代替set） trim（加前后缀  忽略关键字） foreach sql片段-->
+    <!--    if-->
+    <select id="selectActiveBlogByTitle" resultMap="blogResultMap" parameterType="string">
+        select * from blog
+        where blog.blog.state='ACTIVE'
+        <if test="value !=null and value !=''">
+            and title like '%${value}%'
+        </if>
+    </select>
+    <select id="selectActiveBlogByTitleOrStyle" resultMap="blogResultMap">
+        select * from blog
+        where blog.blog.state='ACTIVE'
+        <choose>
+            <when test="title !=null and title !=''">
+                and lower(title) like lower (#{title})
+            </when>
+            <when test="style !=null and style !=''">
+                and lower(style) like lower (#{style})
+            </when>
+            <otherwise>
+                and blog.blog.featured =1
+            </otherwise>
+        </choose>
+
+    </select>
+    <!--    会过滤掉第一个and
+      自动修补查询条件，查询语句中的where关键字 使用<where>
+    -->
+    <select id="selectBlogCondition" resultMap="blogResultMap" parameterType="top.musuixin.mybatis.entity.Blog">
+        select * from blog
+        <where>
+            <if test="state !=null and state !=''">
+                state =#{state}
+            </if>
+            <if test="title !=null and title  !=''">
+                and lower (title) like lower (#{title})
+            </if>
+            <if test="featured !=null and featured  !=''">
+                and featured =#{featured}
+            </if>
+        </where>
+    </select>
+    <!--    按需修改，修改指定的列 未指定的不修改
+            set:会自动去掉语句后面多余的逗号
+    -->
+    <update id="updateBlogByConditione" parameterType="top.musuixin.mybatis.entity.Blog">
+        update
+        blog
+        <set>
+            <if test="title !=null">
+                title =#{title},
+            </if>
+            <if test="authorId !=null">
+                author_id =#{authorId},
+            </if>
+            <if test="state !=null">
+                state =#{state},
+            </if>
+            <if test="featured !=null">
+                featured =#{featured},
+            </if>
+            <if test="style !=null">
+                style =#{style}
+            </if>
+        </set>
+        where blog_id=#{blogId}
+    </update>
+    <!--    trim-->
+    <!--    prefix	给sql语句拼接的前缀-->
+    <!--    suffix	给sql语句拼接的后缀-->
+    <!--    prefixOverrides	去除sql语句前面的关键字或者字符，该关键字或者字符由prefixOverrides属性指定，假设该属性指定为"AND"，当sql语句的开头为"AND"，trim标签将会去除该"AND"-->
+    <!--    suffixOverrides	去除sql语句后面的关键字或者字符，该关键字或者字符由suffixOverrides属性指定-->
+    <select id="selectBlogByConditionTrim" resultMap="blogResultMap">
+        select * from blog
+        <!--        代替where-->
+        <trim prefix="where" suffixOverrides="and | or">
+        </trim>
+    </select>
+    <!--    foreach 循环 作用：批量参数-->
+    <delete id="deleteBlogList" parameterType="list">
+        delete from blog where blog_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    <!-- 关联查询 先执行一次单表查询 再执行其他单表查询-->
+    <!--    一对一与多对一-->
+    <!--    在多中添加一的实体类
+            配置 result map
+           必要配置：id association
+    -->
+    <resultMap id="blogResultMap2" type="top.musuixin.mybatis.entity.Blog">
+        <id column="id" property="blogId"/>
+        <result column="blog_id" property="blogId"/>
+        <association property="author" javaType="top.musuixin.mybatis.entity.Author" column="author_id"
+                     select="top.musuixin.mybatis.mapper.AuthorMapper.selectAuthorById">
+        </association>
+    </resultMap>
+    <select id="getBlogAndAuthorById" resultMap="blogResultMap2">
+        select * from blog where blog.blog.blog_id=#{id};
+    </select>
+    <select id="selectBlogList" resultMap="blogResultMap2">
+        select * from blog
+    </select>
+    <!--    嵌套结果执行流程：-->
+    <!--    1、先执行管理查询，一次性将所有数据都查询出来-->
+    <!--    2、再将所有查询出来的列组织成嵌套的结果对象-->
+<!--    注：要做扩展集必须要把所有对应的result写上-->
+    <resultMap id="blogResultMapNested" type="top.musuixin.mybatis.entity.Blog">
+        <id column="id" property="blogId"/>
+        <result column="blog_id" property="blogId"/>
+        <result column="title" property="title"/>
+        <association property="author" javaType="top.musuixin.mybatis.entity.Author" column="author_id">
+            <id column="author_id" property="authorId"/>
+            <result property="favouriteSection" column="favourite_section"/>
+            <result property="username" column="username"/>
+        </association>
+    </resultMap>
+    <select id="selectBlogAndAuthor" resultMap="blogResultMapNested">
+        SELECT * FROM blog LEFT JOIN  author ON  blog.author_id=author.author_id  WHERE blog_id=#{id}
+    </select>
+</mapper>
