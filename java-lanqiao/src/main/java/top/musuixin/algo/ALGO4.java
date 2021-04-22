@@ -15,7 +15,7 @@ public class ALGO4 {
         weight = new int[MAX_N][2];// 下标从1开始
         sc = new Scanner(new InputStreamReader(System.in));
         while (sc.hasNext()) {
-            adjacencyList = new ArrayList<List<Integer>>();// 头指针的线性表
+            adjacencyList = new ArrayList<>();// 头指针的线性表
             input();
             dfs(1, 0);// 1根节点，0无前驱结点
             System.out.println(Math.max(weight[1][0], weight[1][1]));

@@ -6,7 +6,15 @@ package top.musuixin;
  */
 public class App {
     public static void main(String[] args) {
-        SeasonEnum male = SeasonEnum.valueOf("MALE");
-        male.setName();
+        testEnum(SeasonEnum.MALE);
+
     }
+
+     static void testEnum(SeasonEnum season){
+         System.out.println(season);
+
+     }
+     static String testEnum(){
+        return "";
+     }
 }

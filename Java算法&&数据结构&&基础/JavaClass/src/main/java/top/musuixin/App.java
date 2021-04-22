@@ -1,9 +1,5 @@
 package top.musuixin;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Hello world!
  */
@@ -35,8 +31,8 @@ class MyThread2 implements Runnable {
 
 public class App {
     public static void main(String[] args) {
-        ArrayBlockingQueue<Runnable> runnables = new ArrayBlockingQueue<>(3);
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 5, TimeUnit.SECONDS, runnables);
-        threadPoolExecutor.execute(new MyThread1());
+//        ArrayBlockingQueue<Runnable> runnables = new ArrayBlockingQueue<>(3);
+//        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 10, 5, TimeUnit.SECONDS, runnables);
+//        threadPoolExecutor.execute(new MyThread1());
     }
 }
