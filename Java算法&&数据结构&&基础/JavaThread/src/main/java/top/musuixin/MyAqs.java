@@ -8,8 +8,7 @@ public class MyAqs {
     public static void main(String[] args) {
         ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
         ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(false, false);
-        for (ThreadInfo t :
-                threadInfos) {
+        for (ThreadInfo t : threadInfos) {
             System.err.println(""+t.getThreadId()+" "+t.getThreadName());
         }
     }
