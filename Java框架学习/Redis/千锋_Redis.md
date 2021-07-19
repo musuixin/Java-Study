@@ -1,10 +1,10 @@
-### 	Redis
+### Redis
 
 ------
 
 版本：
 
-redis  3.2.11
+redis 3.2.11
 
 #### 第一节 Redis简介
 
@@ -14,7 +14,7 @@ redis  3.2.11
 NoSQL，泛指非关系型的数据库，NoSQL即Not-Only SQL，它可以作为关系型数据库的良好补充。随着互联网web2.0网站的兴起，非关系型的数据库现在成了一个极其热门的新领域，非关系数据库产品的发展非常迅速
 ```
 
-而传统的关系数据库在应付web2.0网站，特别是超大规模和高并发的SNS类型的web2.0纯动态网站已经显得力不从心，暴露了很多难以克服的问题，例如： 
+而传统的关系数据库在应付web2.0网站，特别是超大规模和高并发的SNS类型的web2.0纯动态网站已经显得力不从心，暴露了很多难以克服的问题，例如：
 
 ```
 1、High performance - 对数据库高并发读写的需求 
@@ -36,7 +36,7 @@ web2.0网站要根据用户个性化信息来实时生成动态页面和提供�
 NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题
 ```
 
- ![p1](mdpic\p1.PNG)
+![p1](mdpic\p1.PNG)
 
 ##### 1.2 NoSQL的类别
 
@@ -184,9 +184,9 @@ redis.conf是redis的配置文件，redis.conf在redis源码目录。
 
 注意修改port作为redis进程的端口,port默认6379。
 
-拷贝配置文件到安装目录下 
+拷贝配置文件到安装目录下
 
-进入源码目录，里面有一份配置文件 redis.conf，然后将其拷贝到安装路径下
+进入源码目录，里面有一份配置文件 redis.conf，然后将其拷贝到安装路径下
 
 ```shell
 cd /usr/local/redis		切换目录
@@ -195,7 +195,7 @@ cp /usr/local/redis-3.2.11/redis.conf /usr/local/redis/conf		复制配置文件
 ./redis-server			启动
 ```
 
- redis关闭的方式
+redis关闭的方式
 
 ```shell
 pkill redis server
@@ -211,14 +211,14 @@ kill 进程号
 
 ##### 2.3 后端模式启动
 
-修改redis.conf配置文件， daemonize yes 以后端模式启动
+修改redis.conf配置文件， daemonize yes 以后端模式启动
 
 ```
 执行如下命令启动redis：
 vim /usr/local/redis/conf/redis.conf   编辑redis的配置文件，修改daemonize yes 保存即可
 ```
 
- ![p3](mdpic\p3.PNG)
+![p3](mdpic\p3.PNG)
 
 ```
  ps aux|grep redis		查询redis是否启动
@@ -383,11 +383,9 @@ ps aux|grep redis    查询redis是否启动
 ping     Redis提供了PING命令来测试客户端与Redis的连接是否正常，如果连接正常会收到回复PONG
 ```
 
- 
+![p4](mdpic\p5.PNG)
 
-  ![p4](mdpic\p5.PNG)
-
-#####  2.6 远程连接
+##### 2.6 远程连接
 
 默认不允许远程连接，需要修改一下信息才可以进行修改
 
@@ -435,9 +433,9 @@ String 数据结构是简单的key-value类型，value其实不仅是String，�
 
 命令演示
 
- ![p7](mdpic\p7.PNG)
+![p7](mdpic\p7.PNG)
 
- ![p8](mdpic\p8.PNG)
+![p8](mdpic\p8.PNG)
 
 ```
  setrange pw 1 user   将key为pw的值从索引为1的开始进行替换，后面的由原来的字符补齐
@@ -468,11 +466,11 @@ hgetall key：返回hash里所有的field和value
 
 命令演示
 
- ![p9](mdpic\p9.PNG)
+![p9](mdpic\p9.PNG)
 
- ![p10](mdpic\p10.PNG)
+![p10](mdpic\p10.PNG)
 
- ![p11](mdpic\p11.PNG)
+![p11](mdpic\p11.PNG)
 
 ###### 3.1.3 List类型
 
@@ -504,11 +502,11 @@ lindex key index：返回名称为key的list中index位置的元素
 
 命令演示
 
- ![p12](mdpic\p12.PNG)
+![p12](mdpic\p12.PNG)
 
- ![p13](mdpic\p13.PNG)
+![p13](mdpic\p13.PNG)
 
- ![p14](mdpic\p14.PNG)
+![p14](mdpic\p14.PNG)
 
 ###### 3.1.4 Set类型
 
@@ -535,13 +533,14 @@ srandmember key：随机返回一个元素
 
 命令演示
 
- ![p15](mdpic\p15.PNG)
+![p15](mdpic\p15.PNG)
 
- ![p16](mdpic\p16.PNG)
+![p16](mdpic\p16.PNG)
 
 ###### 3.1.5 Zset类型
 
 	有序集合和集合一样也是string类型元素的集合,且不允许重复的成员。不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。
+
 ```
 有序集合的成员是唯一的,但分数(score)却可以重复。
 集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)。 集合中最大的成员数为 232 - 1 (4294967295, 每个集合可存储40多亿个成员)。
@@ -581,9 +580,9 @@ ZINCRBY  key increment member  	增加memeber元素的分数increment，返回�
 
 命令演示
 
- ![p17](mdpic\p17.PNG)
+![p17](mdpic\p17.PNG)
 
- ![p18](mdpic\p18.PNG)
+![p18](mdpic\p18.PNG)
 
 ###### 3.1.6 HyperLogLog
 
@@ -613,7 +612,7 @@ PFMERGE 		将多个 HyperLogLog 合并为一个 HyperLogLog
 
 命令演示
 
- ![p26](mdpic\p26.PNG)
+![p26](mdpic\p26.PNG)
 
 ##### 3.2 高级命令
 
@@ -642,9 +641,7 @@ flushall ：清空所有数据库
 
 命令演示
 
- ![p19](mdpic\p19.PNG)
-
-
+![p19](mdpic\p19.PNG)
 
 ###### 3.2.2 Redis事务
 
@@ -677,7 +674,7 @@ WATCH key  监听某个 key的值是否发生变化,如果发生变化, watch �
 
 命令演示：
 
- ![p25](mdpic\p25.PNG)
+![p25](mdpic\p25.PNG)
 
 ###### 3.2.3 发布与订阅消息
 
@@ -687,13 +684,13 @@ Redis 客户端可以订阅任意数量的频道。
 下图展示了频道 channel1 ， 以及订阅这个频道的三个客户端 —— client2 、 client5 和 client1 之间的关系
 ```
 
- ![p20](mdpic\p20.PNG)
+![p20](mdpic\p20.PNG)
 
 ```
 当有新消息通过 PUBLISH 命令发送给频道 channel1 时， 这个消息就会被发送给订阅它的三个客户端：
 ```
 
- ![p21](mdpic\p21.PNG)
+![p21](mdpic\p21.PNG)
 
 配置订阅和发布
 
@@ -708,7 +705,7 @@ publish [频道 发布内容] 进行发布消息广播
 
 2、分别在client1和client2进行订阅
 
- ![p23](mdpic\p23.PNG)
+![p23](mdpic\p23.PNG)
 
 3、进行消息发布 ![p24](mdpic\p24.PNG)
 
@@ -726,7 +723,7 @@ Redis SAVE 命令用于创建当前数据库的备份。
 如果需要恢复数据，只需将备份文件 (dump.rdb) 移动到 redis 安装目录并启动服务即可。
 ```
 
- ![p27](mdpic\p27.PNG)
+![p27](mdpic\p27.PNG)
 
 ###### 3.2.5 Redis 安全
 
@@ -745,7 +742,7 @@ Redis SAVE 命令用于创建当前数据库的备份。
  修改：#reqirepass foobared  为 ：    reqirepass  redis(你的密码)
 ```
 
- ![p28](mdpic\p28.PNG)
+![p28](mdpic\p28.PNG)
 
 ```
 pkill redis-server   	关闭redis-server
@@ -753,9 +750,7 @@ pkill redis-server   	关闭redis-server
 ./bin/redis-cli 		打开客户端
 ```
 
- ![p29](mdpic\p29.PNG)
-
-
+![p29](mdpic\p29.PNG)
 
 #### 第四节 redis高级使用
 
@@ -775,7 +770,7 @@ pkill redis-server   	关闭redis-server
 
 对于这种场景，我们可以使如下这种架构：
 
- ![p30](mdpic\p30.PNG)
+![p30](mdpic\p30.PNG)
 
 ```
 如图所示，将一台Redis服务器作主库(Matser)，其他三台作为从库(Slave)，主库只负责写数据，每次有数据更新都将更新的数据同步到它所有的从库，而从库只负责读数据。
@@ -812,9 +807,9 @@ slaveof 主数据库地址  主数据库端口
 设置masterauth  主库密码
 ```
 
- ![p31](mdpic\p31.PNG)
+![p31](mdpic\p31.PNG)
 
- ![p36](mdpic\p36.PNG)
+![p36](mdpic\p36.PNG)
 
 2、启动从库
 
@@ -832,13 +827,11 @@ slaveof 主数据库地址  主数据库端口
 
 info replication
 
-  ![p34](mdpic\p34.PNG)
-
-
+![p34](mdpic\p34.PNG)
 
 4、测试数据的主从复制
 
- ![p37](mdpic\p37.PNG)如果主库宕机，那么
+![p37](mdpic\p37.PNG)如果主库宕机，那么
 
 ```
 如果主库宕机，那么就无法再继续写入数据
@@ -895,9 +888,9 @@ sentinel  failover-timeout mymaster 600000 解释：若哨兵在该配置值内�
 sentinel  parallel-syncs mymaster 1 解释：有多少个从节点
 ```
 
- ![p38](mdpic\p38.PNG)
+![p38](mdpic\p38.PNG)
 
-  ![p40](mdpic\p40.PNG)
+![p40](mdpic\p40.PNG)
 
 ###### 4.2.3 启动
 
@@ -907,9 +900,9 @@ sentinel  parallel-syncs mymaster 1 解释：有多少个从节点
  /usr/local/redis/bin/redis-cli -h 10.211.55.12 -p 26379 info sentinel
 ```
 
- ![p39](mdpic\p39.PNG)
+![p39](mdpic\p39.PNG)
 
- ![p41](mdpic\p41.PNG)
+![p41](mdpic\p41.PNG)
 
 ##### 4.3 持久化机制
 
@@ -944,7 +937,7 @@ dbfilename dump.rdb    持久化数据存储在本地的文件
 dir ./   持久化数据存储在本地的路径，如果是在/redis/redis-3.0.6/src下启动的redis-cli，则数据会存储在当前src目录下
 ```
 
- ![p45](mdpic\p45.PNG)
+![p45](mdpic\p45.PNG)
 
 ```
 持久化过程：
@@ -957,9 +950,7 @@ dir ./   持久化数据存储在本地的路径，如果是在/redis/redis-3.0.
 一个是在前台进行存储，一个是在后台进行存储。
 ```
 
- ![p46](mdpic\p46.PNG)
-
-
+![p46](mdpic\p46.PNG)
 
 ###### 4.3.2 AOF
 
@@ -982,7 +973,7 @@ appendonly yes //启动aof持久化 ,持久化有三种方式：
 #appendfsync no  //完全依赖os，性能最好，持久化没保证。
 ```
 
- ![p47](mdpic\p47.PNG)
+![p47](mdpic\p47.PNG)
 
 ```
 重启redis发现bin/目录下多了一个appendonly.aof

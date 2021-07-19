@@ -26,11 +26,11 @@ import org.apache.skywalking.apm.plugin.sjdbc.ExecuteEventListener;
 /**
  * {@link ExecutorEngineConstructorInterceptor} enhances {@link com.dangdang.ddframe.rdb.sharding.executor.ExecutorEngine}'s constructor,
  * initializing {@link ExecuteEventListener}
- * 
+ *
  * @author gaohongtao
  */
 public class ExecutorEngineConstructorInterceptor implements InstanceConstructorInterceptor {
-    
+
     @Override public void onConstruct(EnhancedInstance objInst, Object[] allArguments) {
         ExecuteEventListener.init();
     }

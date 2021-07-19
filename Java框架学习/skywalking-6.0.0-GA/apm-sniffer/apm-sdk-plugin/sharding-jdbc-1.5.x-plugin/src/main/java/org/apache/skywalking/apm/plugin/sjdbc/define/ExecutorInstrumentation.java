@@ -32,17 +32,17 @@ import static net.bytebuddy.matcher.ElementMatchers.named;
 
 /**
  * {@link ExecutorInstrumentation} presents that skywalking intercepts {@link com.dangdang.ddframe.rdb.sharding.executor.ExecutorEngine}.
- * 
+ *
  * @author gaohongtao
  */
 public class ExecutorInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
-    
+
     private static final String ENHANCE_CLASS = "com.dangdang.ddframe.rdb.sharding.executor.ExecutorEngine";
-    
+
     private static final String EXECUTOR_ENGINE_CONSTRUCTOR_INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.sjdbc.define.ExecutorEngineConstructorInterceptor";
 
     private static final String EXECUTE_INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.sjdbc.define.ExecuteInterceptor";
-    
+
     private static final String ASYNC_EXECUTE_INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.sjdbc.define.AsyncExecuteInterceptor";
 
     @Override
@@ -61,7 +61,7 @@ public class ExecutorInstrumentation extends ClassInstanceMethodsEnhancePluginDe
             }
         };
     }
-    
+
     @Override
     protected InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
         return new InstanceMethodsInterceptPoint[]{
@@ -99,7 +99,7 @@ public class ExecutorInstrumentation extends ClassInstanceMethodsEnhancePluginDe
             }
         };
     }
-    
+
     @Override
     protected ClassMatch enhanceClass() {
         return NameMatch.byName(ENHANCE_CLASS);

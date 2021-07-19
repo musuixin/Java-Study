@@ -30,11 +30,11 @@ import static net.bytebuddy.matcher.ElementMatchers.named;
 import static org.apache.skywalking.apm.agent.core.plugin.match.MultiClassNameMatch.byMultiClassMatch;
 
 /**
- * {@link CallableInstrumentation} define that the mysql-2.x plugin intercepts the following methods in the 
+ * {@link CallableInstrumentation} define that the mysql-2.x plugin intercepts the following methods in the
  * com.mysql.jdbc.CallableStatement
- * 1. execute 
- * 2. executeQuery 
- * 3. executeUpdate 
+ * 1. execute
+ * 2. executeQuery
+ * 3. executeUpdate
  *
  * @author zhangxin
  */

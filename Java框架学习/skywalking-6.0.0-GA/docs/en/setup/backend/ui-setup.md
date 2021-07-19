@@ -1,10 +1,13 @@
 # UI
-SkyWalking UI distribution is already included in our Apache official release. 
+
+SkyWalking UI distribution is already included in our Apache official release.
 
 ## Startup
+
 Startup script is also in `/bin/webappService.sh`(.bat). UI runs as an OS Java process, powered-by Zuul.
 
 ## Settings
+
 Setting file of UI is  `webapp/webapp.yml` in distribution package. It is constituted by three parts.
 
 1. Listening port.
@@ -33,6 +36,6 @@ security:
 
 ## Another Open Source UI RocketBot
 
-A modern and awesome UI for Apache SkyWalking. 
+A modern and awesome UI for Apache SkyWalking.
 
 Github: [https://github.com/TinyAllen/rocketbot](https://github.com/TinyAllen/rocketbot)

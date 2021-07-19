@@ -33,5 +33,5 @@ public class ReaderAccountTest {
         assertThat(account.userName(), is("admin"));
         assertThat(account.password(), is("888888"));
     }
-    
+
 }

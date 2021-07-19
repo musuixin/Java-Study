@@ -33,7 +33,7 @@ import org.apache.skywalking.apm.network.trace.component.ComponentsDefine;
 /**
  * {@link ExecuteInterceptor} enhances {@link com.dangdang.ddframe.rdb.sharding.executor.ExecutorEngine#execute(SQLType, Collection, List, ExecuteCallback)}
  * ,creating a local span that records the overall execution of sql
- * 
+ *
  * @author gaohongtao
  */
 public class ExecuteInterceptor implements InstanceMethodsAroundInterceptor {

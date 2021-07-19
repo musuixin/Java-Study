@@ -1,31 +1,27 @@
 # 插件开发指南
+
 本文档描述了如何理解，开发和贡献插件。
 
 ## 概念
+
 ### Span
-Span是分布式跟踪系统中一个重要且通用的概念。
-可从[Google Dapper Paper](https://research.google.com/pubs/pub36356.html) 和
+
+Span是分布式跟踪系统中一个重要且通用的概念。 可从[Google Dapper Paper](https://research.google.com/pubs/pub36356.html) 和
 [OpenTracing](http://opentracing.io)学习**Span**相关知识
 
 SkyWalking从2017年开始支持OpenTracing和OpenTracing-Java API，我们的Span概念与论文和OpenTracing类似。我们也扩展了Span。
 
 Span有三种类型
 
-1.1 EntrySpan
-EntrySpan代表服务提供者，也是服务器端的端点。 作为一个APM系统，我们的目标是
-应用服务器。 所以几乎所有的服务和MQ-comsumer都是EntrySpan。
+1.1 EntrySpan EntrySpan代表服务提供者，也是服务器端的端点。 作为一个APM系统，我们的目标是 应用服务器。 所以几乎所有的服务和MQ-comsumer都是EntrySpan。
 
-1.2 LocalSpan
-LocalSpan表示普通的Java方法，它与远程服务无关，也不是MQ生产者/消费者
-也不是服务（例如HTTP服务）提供者/消费者。
+1.2 LocalSpan LocalSpan表示普通的Java方法，它与远程服务无关，也不是MQ生产者/消费者 也不是服务（例如HTTP服务）提供者/消费者。
 
-1.3 ExitSpan
-ExitSpan代表一个服务客户端或MQ的生产者，在SkyWalking的早期命名为“LeafSpan”。
-例如 通过JDBC访问DB，读取Redis / Memcached被编目为ExitSpan。
+1.3 ExitSpan ExitSpan代表一个服务客户端或MQ的生产者，在SkyWalking的早期命名为“LeafSpan”。 例如 通过JDBC访问DB，读取Redis / Memcached被编目为ExitSpan。
 
 ### ContextCarrier
-为了实现分布式跟踪，需要绑定跨进程的跟踪，并且应该传播上下文
-整个过程。 这就是ContextCarrier的职责。
+
+为了实现分布式跟踪，需要绑定跨进程的跟踪，并且应该传播上下文 整个过程。 这就是ContextCarrier的职责。
 
 以下是有关如何在`A -> B`分布式调用中使用**ContextCarrier**的步骤。
 
@@ -63,16 +59,19 @@ ExitSpan代表一个服务客户端或MQ的生产者，在SkyWalking的早期命
 ```
 
 ### ContextSnapshot
-除了跨进程，跨线程也是需要支持的，例如异步线程（内存中的消息队列）和批处理在java中很常见，跨进程和跨线程十分相似，因为都是需要传播
-上下文。 唯一的区别是，不需要跨线程序列化。
+
+除了跨进程，跨线程也是需要支持的，例如异步线程（内存中的消息队列）和批处理在java中很常见，跨进程和跨线程十分相似，因为都是需要传播 上下文。 唯一的区别是，不需要跨线程序列化。
 
 以下是有关跨线程传播的三个步骤：
+
 1. 使用`ContextManager＃capture`获取ContextSnapshot对象。
 2. 让子线程以任何方式，通过方法参数或由现有参数携带来访问ContextSnapshot
 3. 在子线程中使用`ContextManager#continies`。
 
 ## 核心 API
+
 ### ContextManager
+
 ContextManager提供所有主要API。
 
 1. Create EntrySpan
@@ -80,6 +79,7 @@ ContextManager提供所有主要API。
 ```java
 public static AbstractSpan createEntrySpan(String endpointName, ContextCarrier carrier)
 ```
+
 按操作名称创建 EntrySpan (例如服务名称, uri) 和 **ContextCarrier**.
 
 2. Create LocalSpan
@@ -87,6 +87,7 @@ public static AbstractSpan createEntrySpan(String endpointName, ContextCarrier c
 ```java
 public static AbstractSpan createLocalSpan(String endpointName)
 ```
+
 按操作名称创建 LocalSpan (例如完整的方法结构)
 
 3. Create ExitSpan
@@ -94,9 +95,11 @@ public static AbstractSpan createLocalSpan(String endpointName)
 ```java
 public static AbstractSpan createExitSpan(String endpointName, ContextCarrier carrier, String remotePeer)
 ```
+
 按操作名称创建 ExitSpan (例如服务名称, uri) 和 **ContextCarrier** 和 对端地址 (例如ip+port或hostname+port)
 
 ### AbstractSpan
+
 ```java
     /**
      * Set the component id, which defines in {@link ComponentsDefine}
@@ -150,32 +153,38 @@ public static AbstractSpan createExitSpan(String endpointName, ContextCarrier ca
      */
     AbstractSpan setOperationName(String endpointName);
 ```
+
 除了设置操作名称，标签信息和日志外，还要设置两个属性，即component（组件）和layer（层），特别是对于EntrySpan和ExitSpan。
 
 SpanLayer 是span的编目. 有五个值:
+
 1. UNKNOWN (默认)
 1. DB
 1. RPC_FRAMEWORK, （为了RPC框架，非普通的HTTP调用）for a RPC framework, not an ordinary HTTP
 1. HTTP
 1. MQ
 
-组件ID由SkyWalking项目定义和保留，对于组件的名称或ID的扩展，请遵循[组件库的定义与扩展](Component-library-settings.md) 
+组件ID由SkyWalking项目定义和保留，对于组件的名称或ID的扩展，请遵循[组件库的定义与扩展](Component-library-settings.md)
 
 ## 开发插件
+
 ### Abstract（抽象）
-跟踪的基本方法是拦截Java方法，使用字节码操作技术和AOP概念。
-SkyWalking包装了字节码操作技术并跟踪上下文的传播，
-所以你只需要定义拦截点（换句话说就是Spring的切面）
+
+跟踪的基本方法是拦截Java方法，使用字节码操作技术和AOP概念。 SkyWalking包装了字节码操作技术并跟踪上下文的传播， 所以你只需要定义拦截点（换句话说就是Spring的切面）
 
 ### Intercept（拦截）
+
 SkyWalking提供两类通用的定义去拦截构造器，实例方法和类方法。
-* Extend `ClassInstanceMethodsEnhancePluginDefine` defines `Contructor` intercept points and `instance method` intercept points.
+
+* Extend `ClassInstanceMethodsEnhancePluginDefine` defines `Contructor` intercept points and `instance method` intercept
+  points.
 * 继承 `ClassInstanceMethodsEnhancePluginDefine` 定义 `Contructor`（构造器）拦截点和 `instance method`（实例化方法）拦截点.
 * 继承 `ClassStaticMethodsEnhancePluginDefine` 定义 `class method`（类方法）拦截点.
 
 当然，您也可以集成`ClassEnhancePluginDefine`去设置所有的拦截点，担着不常用。
 
 ### Implement plugin（实现插件）
+
 下文，我将通过扩展`ClassInstanceMethodsEnhancePluginDefine`来演示如何实现一个插件
 
 1. 定义目标类的名称
@@ -185,17 +194,17 @@ protected abstract ClassMatch enhanceClass();
 ```
 
 ClassMatch 以下有四种方法表示如何去匹配目标类:
+
 * byName, 通过完整的类名(package name + `.` + class name)（包名+类名）。
 * byClassAnnotationMatch, 通过目标类存在某些注释。
 * byMethodAnnotationMatch, 通过目标类的方法存在某些注释.
 * byHierarchyMatch, 通过目标类的父类或接口
 
 **注意事项**:
-* 禁止使用 `*.class.getName()` 去获取类名， 建议你使用文字字符串，这是为了
-避免ClassLoader问题。
+
+* 禁止使用 `*.class.getName()` 去获取类名， 建议你使用文字字符串，这是为了 避免ClassLoader问题。
 * `by*AnnotationMatch` 不支持继承的注释.
-* 非必要的话，不推荐使用 `byHierarchyMatch`, 因为使用它可能会触发拦截
-许多未被发现的方法，会导致性能问题和不稳定。
+* 非必要的话，不推荐使用 `byHierarchyMatch`, 因为使用它可能会触发拦截 许多未被发现的方法，会导致性能问题和不稳定。
 
 实例：
 
@@ -234,14 +243,16 @@ public interface InstanceMethodsInterceptPoint {
 以下部分将告诉您如何实现拦截器。
 
 3. Add plugin define into skywalking-plugin.def file
+
 ```properties
 tomcat-7.x/8.x=TomcatInstrumentation
 ```
 
-
 ### 实现一个拦截器
+
 作为一个实例方法的拦截器，需要实现
 `org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor`
+
 ```java
 /**
  * A interceptor, which intercept method's invocation. The target methods will be defined in {@link
@@ -278,22 +289,26 @@ public interface InstanceMethodsAroundInterceptor {
         Throwable t);
 }
 ```
+
 在before，after和exception处理阶段使用核心API。
 
-
 ### 将插件贡献到Apache SkyWalking 仓库中
+
 我们欢迎大家贡献插件。
 
 请按照以下步骤操作：
 
 1. 提交有关您要贡献哪些插件的问题，包括支持的版本。
 1. 在`apm-sniffer / apm-sdk-plugin`或`apm-sniffer / optional-plugins`下创建子模块，名称应包含支持的库名和版本
-1. Create sub modules under `apm-sniffer/apm-sdk-plugin` or `apm-sniffer/optional-plugins`, and the name should include supported library name and versions
+1. Create sub modules under `apm-sniffer/apm-sdk-plugin` or `apm-sniffer/optional-plugins`, and the name should include
+   supported library name and versions
 1. 按照本指南进行开发。 确保提供评论和测试用例。
 1. 开发并测试。
 1. 发送拉取请求并要求审核。
-1. 提供自动测试用例。 
-所有测试用例都托管在[SkywalkingTest/skywalking-agent-testcases repository](https://github.com/SkywalkingTest/skywalking-agent-testcases).
-关于如何编写测试用例，请按照[如何编写](https://github.com/SkywalkingTest/skywalking-agent-testcases/blob/master/docs/how-to-write-a-plugin-testcase.md) 文档来实现.
+1. 提供自动测试用例。
+   所有测试用例都托管在[SkywalkingTest/skywalking-agent-testcases repository](https://github.com/SkywalkingTest/skywalking-agent-testcases)
+   .
+   关于如何编写测试用例，请按照[如何编写](https://github.com/SkywalkingTest/skywalking-agent-testcases/blob/master/docs/how-to-write-a-plugin-testcase.md)
+   文档来实现.
 1. 在提供自动测试用例并在CI中递交测试后，插件提交者会批准您的插件。
 1. SkyWalking接受的插件。 

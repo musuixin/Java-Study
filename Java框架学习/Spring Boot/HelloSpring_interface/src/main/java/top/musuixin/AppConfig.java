@@ -18,6 +18,4 @@ import top.musuixin.Service.imple.UserServiceimple;
 public class AppConfig {
 
 
-
-
 }

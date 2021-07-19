@@ -79,7 +79,7 @@ public class AntPathMatcher implements TracePathMatcher {
             if (patternIdxStart > patternIdxEnd) {
                 return pattern.endsWith(DEFAULT_PATH_SEPARATOR) == path.endsWith(DEFAULT_PATH_SEPARATOR);
             }
-            return patternIdxStart == patternIdxEnd && resolvedPatterns[patternIdxStart].equals(ANY_MATCHING_CHAR) && path.endsWith(DEFAULT_PATH_SEPARATOR) 
+            return patternIdxStart == patternIdxEnd && resolvedPatterns[patternIdxStart].equals(ANY_MATCHING_CHAR) && path.endsWith(DEFAULT_PATH_SEPARATOR)
                     || MatchAssist.checkPatternIdx(patternIdxStart, patternIdxEnd, resolvedPatterns);
         }
         else if (patternIdxStart > patternIdxEnd) {

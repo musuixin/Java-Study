@@ -1,7 +1,7 @@
 # Powered by Apache SkyWalking
-This page documents an **alphabetical list** of institutions that are using Apache SkyWalking for research and production,
-or providing commercial products including Apache SkyWalking.
 
+This page documents an **alphabetical list** of institutions that are using Apache SkyWalking for research and
+production, or providing commercial products including Apache SkyWalking.
 
 1. 300.cn 中企动力科技股份有限公司 http://www.300.cn/
 1. 4399.com 四三九九网络股份有限公司. http://www.4399.com/
@@ -21,7 +21,7 @@ or providing commercial products including Apache SkyWalking.
 1. Deyoushenghuo in WeChat app. 河南有态度信息科技有限公司，微信小程序：得有生活
 1. Dianfubao.com 垫富宝 https://www.dianfubao.com/
 1. Eqxiu.com. 北京中网易企秀科技有限公司 http://www.eqxiu.com/
-1. GTrace System. (No company provided) 
+1. GTrace System. (No company provided)
 1. Gdeng.cn 深圳谷登科技有限公司 http://www.gdeng.cn/
 1. Guazi.com 瓜子二手车直卖网. https://www.guazi.com/
 1. guohuaitech.com 北京国槐信息科技有限公司. http://www.guohuaitech.com/
@@ -64,9 +64,14 @@ or providing commercial products including Apache SkyWalking.
 1. Youzan.com 杭州有赞科技有限公司 http://www.youzan.com/
 
 # User Cases
+
 ## ke.com
+
 ### Deployment Configuration
-Three CentOs Machine(32 CPUs, 64G RAM, 1.3T Disk) for Collector Server
-Three ElasticSearch(Version 6.4.2, 40 CPUs, 96G RAM, 7T Disk) Nodes for Storage
+
+Three CentOs Machine(32 CPUs, 64G RAM, 1.3T Disk) for Collector Server Three ElasticSearch(Version 6.4.2, 40 CPUs, 96G
+RAM, 7T Disk) Nodes for Storage
+
 ### Performance
+
 Support 60+ Instances, Over 300k Calls Per Minute, Over 50k Spans Per Second

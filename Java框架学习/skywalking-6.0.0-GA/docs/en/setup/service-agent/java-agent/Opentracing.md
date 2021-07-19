@@ -1,4 +1,5 @@
 * Dependency the toolkit, such as using maven or gradle
+
 ```xml
    <dependency>
       <groupId>org.apache.skywalking</groupId>
@@ -7,8 +8,8 @@
    </dependency>
 ```
 
-
 * Use our OpenTracing tracer implementation
+
 ```java
 Tracer tracer = new SkywalkingTracer();
 Tracer.SpanBuilder spanBuilder = tracer.buildSpan("/yourApplication/yourService");

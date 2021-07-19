@@ -36,7 +36,7 @@ import org.apache.skywalking.oap.server.core.source.*;
  * @author Observability Analysis Language code generator
  */
 public class ServiceInstanceDispatcher implements SourceDispatcher<ServiceInstance> {
-    
+
     @Override public void dispatch(ServiceInstance source) {
 <#list serviceInstanceIndicators as indicator>
         do${indicator.metricName}(source);

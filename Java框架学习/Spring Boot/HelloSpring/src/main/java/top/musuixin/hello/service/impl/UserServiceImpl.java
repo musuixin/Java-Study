@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Scheduled(fixedRate = 10)
     public void h() {
-        SseRest.sseCache.forEach((e,g)->{
+        SseRest.sseCache.forEach((e, g) -> {
             System.err.println(2);
             try {
                 g.send("hello");

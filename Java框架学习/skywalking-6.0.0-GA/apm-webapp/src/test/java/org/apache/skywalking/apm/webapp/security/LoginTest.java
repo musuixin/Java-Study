@@ -44,7 +44,7 @@ public class LoginTest {
 
     @Mock
     private HttpServletRequest request;
-    
+
     @Mock
     private HttpServletResponse response;
 
@@ -67,7 +67,7 @@ public class LoginTest {
         assertHeaderAndStatusCode();
         verify(ctx).setResponseBody("{\"status\":\"ok\",\"currentAuthority\":\"admin\"}");
     }
-    
+
     @Test
     public void assertFailLogin() throws IOException {
         when(request.getReader()).thenReturn(new BufferedReader(new StringReader("{\"userName\": \"admin\", \"password\":\"888888\"}")));
@@ -81,7 +81,7 @@ public class LoginTest {
         when(request.getReader()).thenThrow(new IOException());
         loginFilter.run();
     }
-    
+
     private void assertHeaderAndStatusCode() {
         verify(ctx).setResponseStatusCode(HttpServletResponse.SC_OK);
         verify(response).setContentType("application/json");

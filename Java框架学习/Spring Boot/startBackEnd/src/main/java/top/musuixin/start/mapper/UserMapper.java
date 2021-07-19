@@ -11,5 +11,5 @@ import top.musuixin.start.role.User;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-    
+
 }

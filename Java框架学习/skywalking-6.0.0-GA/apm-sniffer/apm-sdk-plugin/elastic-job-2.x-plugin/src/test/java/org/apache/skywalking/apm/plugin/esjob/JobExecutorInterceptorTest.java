@@ -51,14 +51,14 @@ public class JobExecutorInterceptorTest {
 
     @Rule
     public AgentServiceRule serviceRule = new AgentServiceRule();
-    
+
     private JobExecutorInterceptor jobExecutorInterceptor;
 
     @Before
     public void setUp() throws SQLException {
         jobExecutorInterceptor = new JobExecutorInterceptor();
     }
-    
+
     @Test
     public void assertSuccess() throws Throwable {
         jobExecutorInterceptor.beforeMethod(null, null, new Object[]{mockShardingContext("fooJob", 1), 1}, null, null);
@@ -97,7 +97,7 @@ public class JobExecutorInterceptorTest {
         assertThat(spans.get(0).transform().getIsError(), is(true));
         assertThat(spans.get(0).transform().getLogs(0).getDataList().size(), is(4));
     }
-    
+
     private ShardingContexts mockShardingContext(String jobName, int shardingItem) {
         Map<Integer, String> shardingMap = new HashMap<Integer, String>(1);
         if (shardingItem >= 1) {

@@ -37,7 +37,7 @@ public class RewritePathFilter extends ZuulFilter {
     private static final String REQUEST_URI = "requestURI";
 
     private static final int ORDER = PRE_DECORATION_FILTER_ORDER + 2;
-    
+
     private String path;
 
     public String getPath() {

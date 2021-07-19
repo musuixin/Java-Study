@@ -17,7 +17,7 @@
 #!/usr/bin/env sh
 
 PRG="$0"
-PRGDIR=`dirname "$PRG"`
+PRGDIR=$(dirname "$PRG")
 OAP_EXE=oapService.sh
 WEBAPP_EXE=webappService.sh
 

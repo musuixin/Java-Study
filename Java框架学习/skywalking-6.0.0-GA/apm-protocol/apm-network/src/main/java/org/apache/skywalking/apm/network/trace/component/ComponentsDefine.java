@@ -105,9 +105,9 @@ public class ComponentsDefine {
     public static final OfficialComponent RABBITMQ_CONSUMER = new OfficialComponent(53,"rabbitmq-consumer");
 
     public static final OfficialComponent CANAL = new OfficialComponent(54,"Canal");
-  
+
     public static final OfficialComponent GSON = new OfficialComponent(55,"Gson");
-  
+
     public static final OfficialComponent REDISSON =  new OfficialComponent(56, "Redisson");
 
     private static ComponentsDefine INSTANCE = new ComponentsDefine();

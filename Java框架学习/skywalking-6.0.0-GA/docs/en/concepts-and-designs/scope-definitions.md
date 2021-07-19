@@ -1,4 +1,5 @@
 # Scopes and Fields
+
 By using Aggregation Function, the requests will group by time and **Group Key(s)** in each scope.
 
 ### SCOPE `All`
@@ -10,10 +11,9 @@ By using Aggregation Function, the requests will group by time and **Group Key(s
 | status  | Represent whether success or fail of the request.  |   | bool(true for success)  |
 | responseCode | Represent the response code of HTTP response, if this request is the HTTP call. e.g. 200, 404, 302| | int |
 
-
 ### SCOPE `Service`
 
-Calculate the metric data from each request of the service. 
+Calculate the metric data from each request of the service.
 
 | Name | Remarks | Group Key | Type | 
 |---|---|---|---|
@@ -28,12 +28,13 @@ Calculate the metric data from each request of the service.
 
 ### SCOPE `ServiceInstance`
 
-Calculate the metric data from each request of the service instance. 
+Calculate the metric data from each request of the service instance.
 
 | Name | Remarks | Group Key | Type | 
 |---|---|---|---|
 | id | Represent the unique id of the service instance, usually a number. | yes | int |
-| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
+| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **
+Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
 | serviceName | Represent the name of the service. | | string |
 | endpointName | Represent the name of the endpoint, such a full path of HTTP URI. | | string|
 | latency | Represent how much time of each request. | | int |
@@ -41,7 +42,7 @@ Calculate the metric data from each request of the service instance.
 | responseCode | Represent the response code of HTTP response, if this request is the HTTP call. | | int |
 | type | Represent the type of each request. Such as: Database, HTTP, RPC, gRPC. | | enum |
 
-#### Secondary scopes of `ServiceInstance` 
+#### Secondary scopes of `ServiceInstance`
 
 Calculate the metric data if the service instance is a JVM and collected by javaagent.
 
@@ -50,7 +51,8 @@ Calculate the metric data if the service instance is a JVM and collected by java
 | Name | Remarks | Group Key | Type | 
 |---|---|---|---|
 | id | Represent the unique id of the service instance, usually a number. | yes | int |
-| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
+| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **
+Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
 | serviceName | Represent the name of the service. | | string |
 | usePercent | Represent how much percent of cpu time cost| | double|
 
@@ -59,7 +61,8 @@ Calculate the metric data if the service instance is a JVM and collected by java
 | Name | Remarks | Group Key | Type | 
 |---|---|---|---|
 | id | Represent the unique id of the service instance, usually a number. | yes | int |
-| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
+| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **
+Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
 | serviceName | Represent the name of the service. | | string |
 | heapStatus | Represent this value the memory metric values are heap or not | | bool |
 | init | See JVM document | | long |
@@ -72,7 +75,8 @@ Calculate the metric data if the service instance is a JVM and collected by java
 | Name | Remarks | Group Key | Type | 
 |---|---|---|---|
 | id | Represent the unique id of the service instance, usually a number. | yes | int |
-| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
+| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **
+Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
 | serviceName | Represent the name of the service. | | string |
 | poolType | Include CODE_CACHE_USAGE, NEWGEN_USAGE, OLDGEN_USAGE, SURVIVOR_USAGE, PERMGEN_USAGE, METASPACE_USAGE based on different version of JVM. | | enum |
 | init | See JVM document | | long |
@@ -85,7 +89,8 @@ Calculate the metric data if the service instance is a JVM and collected by java
 | Name | Remarks | Group Key | Type | 
 |---|---|---|---|
 | id | Represent the unique id of the service instance, usually a number. | yes | int |
-| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
+| name |  Represent the name of the service instance. Such as `ip:port@Service Name`.  **
+Notice**: current native agent uses `processId@Service name` as instance name, which is useless when you want to setup a filter in aggregation. | | string|
 | serviceName | Represent the name of the service. | | string |
 | phrase | Include NEW and OLD | | Enum |
 | time | GC time cost | | long |
@@ -93,7 +98,7 @@ Calculate the metric data if the service instance is a JVM and collected by java
 
 ### SCOPE `Endpoint`
 
-Calculate the metric data from each request of the endpoint in the service. 
+Calculate the metric data from each request of the endpoint in the service.
 
 | Name | Remarks | Group Key | Type | 
 |---|---|---|---|
@@ -126,7 +131,6 @@ Calculate the metric data from each request between one service and the other se
 | type | Represent the type of each request. Such as: Database, HTTP, RPC, gRPC. | | enum |
 | detectPoint | Represent where is the relation detected. Values: client, server, proxy. | yes | enum|
 
-
 ### SCOPE `ServiceInstanceRelation`
 
 Calculate the metric data from each request between one service instance and the other service instance
@@ -149,10 +153,10 @@ Calculate the metric data from each request between one service instance and the
 
 ### SCOPE `EndpointRelation`
 
-Calculate the metric data of the dependency between one endpoint and the other endpoint. 
-This relation is hard to detect, also depends on tracing lib to propagate the prev endpoint. 
-So `EndpointRelation` scope aggregation effects only in service under tracing by SkyWalking native agents, 
-including auto instrument agents(like Java, .NET), OpenCensus SkyWalking exporter implementation or others propagate tracing context in SkyWalking spec.
+Calculate the metric data of the dependency between one endpoint and the other endpoint. This relation is hard to
+detect, also depends on tracing lib to propagate the prev endpoint. So `EndpointRelation` scope aggregation effects only
+in service under tracing by SkyWalking native agents, including auto instrument agents(like Java, .NET), OpenCensus
+SkyWalking exporter implementation or others propagate tracing context in SkyWalking spec.
 
 | Name | Remarks | Group Key | Type | 
 |---|---|---|---|

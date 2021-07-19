@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
-         * </p>
-        *
-        * @author jobob
-        * @since 2020-02-10
-        */
+ * 服务实现类
+ * </p>
+ *
+ * @author jobob
+ * @since 2020-02-10
+ */
 @Service
 public class AuthorServiceImpl extends ServiceImpl<AuthorMapper, Author> implements IAuthorService {
 

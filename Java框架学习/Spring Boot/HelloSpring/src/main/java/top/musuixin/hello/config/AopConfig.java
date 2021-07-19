@@ -7,7 +7,7 @@ import top.musuixin.hello.aop.UserAspect;
 @Configuration
 public class AopConfig {
     @Bean
-    public UserAspect initUserAspect(){
+    public UserAspect initUserAspect() {
         return new UserAspect();
     }
 }

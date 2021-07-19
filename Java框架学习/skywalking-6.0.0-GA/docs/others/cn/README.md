@@ -1,6 +1,9 @@
 # SkyWalking 6 中文文档
+
 注：中文文档由社区志愿者提供，官方文档以英文为准。
+
 # 欢迎
+
 **这是SkyWalking 6 中文文档。期待加入我们**
 
 您可以从这里了解**SkyWalking**的架构、部署和使用，以及如何基于**SkyWalking**进行开发。
@@ -16,16 +19,20 @@
 - [Apache SkyWalking发布页面](http://skywalking.apache.org/downloads/)上提供了最新版本和以往的版本。更改日志请参考[这里](../CHANGES.md)。
 - 你可以在[社区资源目录](https://github.com/OpenSkywalking/Community)中找到关于Skywalking的会议、在线视频或者文章。如果你也有与此相关的内容，欢迎向我们提交Pull Request。
 - 我们一直在寻求帮助来改进我们的文档和代码，因此如果您发现问题，请不要犹豫，[提出问题](https://github.com/apache/incubator-skywalking/issues/new)
-或者更好的是，通过Pull Request提交您的贡献，来帮助改善。
+  或者更好的是，通过Pull Request提交您的贡献，来帮助改善。
 
 对于其他语言的文档，由我们的社区提供，[官方文档](../../README.md)以英文文档为准。
+
 - [中文 :cn:](./README.md)
 
 ___
+
 ### 使用 5.x 版本的用户
+
 SkyWalking 5.x 仍受社区支持。对于用户计划从5.x升级到6.x，您应该知道关于有一些概念的定义的变更。
 
 最重要的两个改变了的概念是：
+
 1. Application（在5.x中）更改为**Service**（在6.x中），Application Instance也更改为**Service Instance**。
 2. Service（在5.x中）更改为**Endpoint**（在6.x中）。
 

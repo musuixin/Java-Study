@@ -33,13 +33,13 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInt
 import java.lang.reflect.Method;
 
 /**
- * {@link AsyncExecuteInterceptor} enhances {@link com.dangdang.ddframe.rdb.sharding.executor.ExecutorEngine#asyncExecute(SQLType, Collection, List, ExecuteCallback)} 
+ * {@link AsyncExecuteInterceptor} enhances {@link com.dangdang.ddframe.rdb.sharding.executor.ExecutorEngine#asyncExecute(SQLType, Collection, List, ExecuteCallback)}
  * so that the sql executor can get a {@link ContextSnapshot} of main thread when it is executed asynchronously.
- * 
+ *
  * @author gaohongtao
  */
 public class AsyncExecuteInterceptor implements InstanceMethodsAroundInterceptor {
-    
+
     public static final String SNAPSHOT_DATA_KEY = "APM_SKYWALKING_SNAPSHOT_DATA";
 
     @Override

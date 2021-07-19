@@ -30,20 +30,20 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 
 /**
  * Filter login request.
- * 
+ *
  * @author gaohongtao
  */
 @Component
 public class LoginFilter extends ZuulFilter {
 
     private static final String REQUEST_URI = "requestURI";
-    
+
     private static final String LOGIN_URI = "/login/account";
 
     private static final int ORDER = PRE_DECORATION_FILTER_ORDER + 1;
-    
+
     private final UserChecker checker;
-    
+
     public LoginFilter(final UserChecker checker) {
         this.checker = checker;
     }
@@ -84,7 +84,7 @@ public class LoginFilter extends ZuulFilter {
         ctx.setSendZuulResponse(false);
         return null;
     }
-    
+
     private static class ResponseData {
         private final String status;
         private final String currentAuthority;

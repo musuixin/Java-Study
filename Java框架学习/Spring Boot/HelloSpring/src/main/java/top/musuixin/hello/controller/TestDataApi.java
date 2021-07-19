@@ -11,8 +11,9 @@ public class TestDataApi {
     @Autowired
     @Qualifier("user")
     UserService userServiceImpl;
+
     @GetMapping("/test_data")
-    public String testData(){
+    public String testData() {
         userServiceImpl.addUser();
         return "Hello Spring ";
     }

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.musuixin.mybatis.mapper.PostMapper">
-
-<!-- 一对多-->
+    <!-- 一对多-->
     <resultMap id="postResultMap" type="top.musuixin.mybatis.entity.Post">
         <id property="postId" column="post_id"/>
         <result column="blog_id" property="blogId"/>
         <result column="author_id" property="authorId"/>
         <collection property="comments" ofType="top.musuixin.mybatis.entity.Comment" column="post_id"
-                     select="top.musuixin.mybatis.mapper.CommentMapper.selectCommentList"/>
+                    select="top.musuixin.mybatis.mapper.CommentMapper.selectCommentList"/>
     </resultMap>
     <select id="selectById" resultMap="postResultMap">
         select * from post where post_id=#{id};

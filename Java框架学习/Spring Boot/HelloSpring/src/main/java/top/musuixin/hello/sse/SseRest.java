@@ -31,8 +31,9 @@ public class SseRest {
 //        sseEmitter.onCompletion(() -> System.out.println("完成！！！"));
         return sseEmitter;
     }
+
     @GetMapping(path = "send")
-    public String push(String id,String content) throws IOException {
+    public String push(String id, String content) throws IOException {
         SseEmitter sseEmitter = sseCache.get(id);
         sseEmitter.send(content);
         return "成功";

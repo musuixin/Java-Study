@@ -133,11 +133,12 @@ class MybatisplusApplicationTests {
     @Test
     void test10() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        String name="王";
-        String email="@qq";
-        queryWrapper.like(StringUtils.isNullOrEmpty(name),"name",name)
+        String name = "王";
+        String email = "@qq";
+        queryWrapper.like(StringUtils.isNullOrEmpty(name), "name", name)
         List<User> users = userMapper.selectList(queryWrapper);
     }
+
     List<User> filteruser(List<User> lists, UserService<User> service) {
         ArrayList<User> list = new ArrayList<>();
         for (User user :

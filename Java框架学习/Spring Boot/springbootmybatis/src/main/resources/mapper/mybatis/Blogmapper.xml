@@ -29,7 +29,7 @@
     </select>
     <!--    使用map传递多参数-->
     <select id="selectBlogByPage3" resultMap="blogResultMap">
-       select * from blog limit #{offest},#{pageSize}
+        select * from blog limit #{offest},#{pageSize}
     </select>
     <!--    获取自增ID，注：将会自动返回到传入的参数中 -->
     <insert id="getinsertBlogId" parameterType="top.musuixin.mybatis.entity.Blog" useGeneratedKeys="true"
@@ -50,7 +50,7 @@
         where blog_id=#{blogId}
     </update>
     <delete id="deleteBlogById">
-            delete from blog where blog_id=#{id}
+        delete from blog where blog_id=#{id}
     </delete>
     <!--    动态sql-->
     <!--    if (choose when otherwise //一般在一起使用) where（代替where） set（代替set） trim（加前后缀  忽略关键字） foreach sql片段-->
@@ -76,7 +76,6 @@
                 and blog.blog.featured =1
             </otherwise>
         </choose>
-
     </select>
     <!--    会过滤掉第一个and
       自动修补查询条件，查询语句中的where关键字 使用<where>
@@ -160,7 +159,7 @@
     <!--    嵌套结果执行流程：-->
     <!--    1、先执行管理查询，一次性将所有数据都查询出来-->
     <!--    2、再将所有查询出来的列组织成嵌套的结果对象-->
-<!--    注：要做扩展集必须要把所有对应的result写上-->
+    <!--    注：要做扩展集必须要把所有对应的result写上-->
     <resultMap id="blogResultMapNested" type="top.musuixin.mybatis.entity.Blog">
         <id column="id" property="blogId"/>
         <result column="blog_id" property="blogId"/>
@@ -172,6 +171,6 @@
         </association>
     </resultMap>
     <select id="selectBlogAndAuthor" resultMap="blogResultMapNested">
-        SELECT * FROM blog LEFT JOIN  author ON  blog.author_id=author.author_id  WHERE blog_id=#{id}
+        SELECT * FROM blog LEFT JOIN author ON blog.author_id=author.author_id WHERE blog_id=#{id}
     </select>
 </mapper>

@@ -38,7 +38,7 @@ import org.apache.skywalking.apm.agent.core.context.ContextSnapshot;
 /**
  * Sharding-jdbc provides {@link EventBusInstance} to help external systems getDefault events of sql execution.
  * {@link ExecuteEventListener} can getDefault sql statement start and end events, resulting in db span.
- * 
+ *
  * @author gaohongtao
  */
 public class ExecuteEventListener {
@@ -58,7 +58,7 @@ public class ExecuteEventListener {
     public void listenDQL(DQLExecutionEvent event) {
         handle(event, "QUERY");
     }
-    
+
     private void handle(AbstractExecutionEvent event, String operation) {
         switch (event.getEventExecutionType()) {
             case BEFORE_EXECUTE:

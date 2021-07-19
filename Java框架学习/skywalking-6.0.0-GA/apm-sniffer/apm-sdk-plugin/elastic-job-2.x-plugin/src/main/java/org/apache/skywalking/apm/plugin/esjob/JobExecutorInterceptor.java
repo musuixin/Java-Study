@@ -33,7 +33,7 @@ import org.apache.skywalking.apm.network.trace.component.ComponentsDefine;
 /**
  * {@link JobExecutorInterceptor} enhances {@link com.dangdang.ddframe.job.executor.AbstractElasticJobExecutor#process(ShardingContext)}
  * ,creating a local span that records job execution.
- * 
+ *
  * @author gaohongtao
  */
 public class JobExecutorInterceptor implements InstanceMethodsAroundInterceptor {

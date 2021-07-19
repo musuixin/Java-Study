@@ -31,7 +31,7 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 
 
 public class LoginFilterTest {
-    
+
     private LoginFilter loginFilter;
 
     @Before

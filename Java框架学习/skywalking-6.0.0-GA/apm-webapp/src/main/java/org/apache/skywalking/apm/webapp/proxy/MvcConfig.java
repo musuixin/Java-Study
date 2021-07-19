@@ -28,12 +28,12 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 
 /**
  * Additional MVC Configuration.
- * 
+ *
  * @author gaohongtao
  */
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
-    
+
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry

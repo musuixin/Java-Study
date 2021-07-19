@@ -31,7 +31,7 @@ import static org.apache.skywalking.apm.agent.core.plugin.match.NameMatch.byName
 
 /**
  * {@link JobExecutorInstrumentation} presents that skywalking intercepts {@link com.dangdang.ddframe.job.executor.AbstractElasticJobExecutor}.
- * 
+ *
  * @author gaohongtao
  */
 public class JobExecutorInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {

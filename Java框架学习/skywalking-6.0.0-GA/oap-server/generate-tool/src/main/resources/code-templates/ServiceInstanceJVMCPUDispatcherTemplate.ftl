@@ -36,7 +36,7 @@ import org.apache.skywalking.oap.server.core.source.*;
  * @author Observability Analysis Language code generator
  */
 public class ServiceInstanceJVMCPUDispatcher implements SourceDispatcher<ServiceInstanceJVMCPU> {
-    
+
     @Override public void dispatch(ServiceInstanceJVMCPU source) {
 <#list serviceInstanceJVMCPUIndicators as indicator>
         do${indicator.metricName}(source);

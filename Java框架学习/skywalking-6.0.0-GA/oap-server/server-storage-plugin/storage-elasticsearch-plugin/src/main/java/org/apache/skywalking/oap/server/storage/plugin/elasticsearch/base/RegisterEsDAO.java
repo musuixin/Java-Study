@@ -68,7 +68,7 @@ public class RegisterEsDAO extends EsDAO implements IRegisterDAO {
             builder.field(key, objectMap.get(key));
         }
         builder.endObject();
-        
+
         return builder;
     }
 }

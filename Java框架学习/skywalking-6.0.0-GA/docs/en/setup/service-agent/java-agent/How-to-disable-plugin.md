@@ -1,4 +1,5 @@
 # Disable plugins
+
 Delete or remove the specific libraries / jars in `skywalking-agent/plugins/*.jar`
 
 ```

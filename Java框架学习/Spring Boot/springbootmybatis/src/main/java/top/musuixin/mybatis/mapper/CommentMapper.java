@@ -15,6 +15,6 @@ import java.util.List;
  */
 public interface CommentMapper extends BaseMapper<Comment> {
 
-//    @Select("select * from comment where post_id=#{id}  ;")
+    //    @Select("select * from comment where post_id=#{id}  ;")
     List<Comment> selectCommentList(Integer id);
 }

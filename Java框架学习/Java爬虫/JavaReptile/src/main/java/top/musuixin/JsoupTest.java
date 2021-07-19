@@ -31,6 +31,7 @@ public class JsoupTest {
         String title = parse.getElementsByTag("title").first().text();
         System.err.println(title);
     }
+
     @Test
     public void domTest() throws IOException {
         int j = 0;
@@ -68,7 +69,7 @@ public class JsoupTest {
         CloseableHttpResponse execute1 = httpClient1.execute(httpGet1);
         HttpEntity entity = execute1.getEntity();
         InputStream content = entity.getContent();
-        FileUtil.writeFromStream(content,"d:/1.html");
+        FileUtil.writeFromStream(content, "d:/1.html");
 
     }
 }

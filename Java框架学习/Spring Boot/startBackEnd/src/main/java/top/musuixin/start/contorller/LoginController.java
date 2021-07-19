@@ -60,6 +60,7 @@ public class LoginController {
         ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
     }
+
     /**
      * 登录接口
      */

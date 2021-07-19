@@ -15,7 +15,7 @@
  * limitations under the License.
  *
  */
- 
+
 package org.apache.skywalking.apm.plugin.canal;
 
 import com.alibaba.otter.canal.client.impl.ClusterNodeAccessStrategy;

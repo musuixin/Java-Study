@@ -33,13 +33,13 @@ import org.apache.skywalking.apm.network.trace.component.ComponentsDefine;
 /**
  * {@link XMemcachedMethodInterceptor} intercept the operation method,
  * record the memcached host, operation name and the key of the operation.
- *  
+ *
  * @author IluckySi
  */
 public class XMemcachedMethodInterceptor implements InstanceMethodsAroundInterceptor {
 
     private static final String XMEMCACHED = "XMemcached/";
-    
+
     @Override public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
         Class<?>[] argumentsTypes, MethodInterceptResult result) throws Throwable {
         String peer = String.valueOf(objInst.getSkyWalkingDynamicField());

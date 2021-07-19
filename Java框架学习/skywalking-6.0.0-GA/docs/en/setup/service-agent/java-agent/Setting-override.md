@@ -1,8 +1,9 @@
 # Setting Override
+
 In default, SkyWalking provide `agent.config` for agent.
 
-Setting override means end user can override the settings in these config file, through using system properties or agent options.
-
+Setting override means end user can override the settings in these config file, through using system properties or agent
+options.
 
 ## System properties
 
@@ -15,6 +16,7 @@ Use `skywalking.` + key in config file as system properties key, to override the
 - Example
 
   Override `agent.application_code` by this.
+
 ```
 -Dskywalking.agent.application_code=31200
 ```
@@ -44,6 +46,7 @@ Add the properties after the agent path in JVM arguments.
 ```
 
 ## System environment variables
+
 - Example
 
   Override `agent.application_code` and `logging.level` by this.
@@ -56,13 +59,14 @@ agent.service_name=${SW_AGENT_NAME:Your_ApplicationName}
 logging.level=${SW_LOGGING_LEVEL:INFO}
 ```
 
-If the `SW_AGENT_NAME ` environment variable exists in your operating system and its value is `skywalking-agent-demo`, 
-then the value of `agent.service_name` here will be overwritten to `skywalking-agent-demo`, otherwise, it will be set to `Your_ApplicationName`.
+If the `SW_AGENT_NAME ` environment variable exists in your operating system and its value is `skywalking-agent-demo`,
+then the value of `agent.service_name` here will be overwritten to `skywalking-agent-demo`, otherwise, it will be set
+to `Your_ApplicationName`.
 
 By the way, Placeholder nesting is also supported, like `${SW_AGENT_NAME:${ANOTHER_AGENT_NAME:Your_ApplicationName}}`.
-In this case, if the `SW_AGENT_NAME ` environment variable not exists, but the ```ANOTHER_AGENT_NAME``` 
-environment variable exists and its value is `skywalking-agent-demo`, then the value of `agent.service_name` here will be overwritten to `skywalking-agent-demo`,otherwise, it will be set to `Your_ApplicationName`.
-
+In this case, if the `SW_AGENT_NAME ` environment variable not exists, but the ```ANOTHER_AGENT_NAME```
+environment variable exists and its value is `skywalking-agent-demo`, then the value of `agent.service_name` here will
+be overwritten to `skywalking-agent-demo`,otherwise, it will be set to `Your_ApplicationName`.
 
 ## Override priority
 

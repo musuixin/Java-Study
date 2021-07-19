@@ -22,7 +22,6 @@
 #   RELEASE_VERSION -- The version of this source package.
 # For example: RELEASE_VERSION=5.0.0-alpha
 
-
 RELEASE_VERSION=${RELEASE_VERSION}
 TAG_NAME=v${RELEASE_VERSION}
 PRODUCT_NAME="apache-skywalking-apm-incubating"
@@ -46,11 +45,11 @@ mkdir ${PRODUCT_NAME}
 git clone https://github.com/apache/incubator-skywalking.git ./${PRODUCT_NAME}
 cd ${PRODUCT_NAME}
 
-TAG_EXIST=`git tag -l ${TAG_NAME} | wc -l`
+TAG_EXIST=$(git tag -l ${TAG_NAME} | wc -l)
 
 if [ ${TAG_EXIST} -ne 1 ]; then
-    echo "Could not find the tag named" ${TAG_NAME}
-    exit 1
+  echo "Could not find the tag named" ${TAG_NAME}
+  exit 1
 fi
 
 git checkout ${TAG_NAME}
@@ -61,15 +60,15 @@ git submodule update
 cd ..
 
 tar czf ${PRODUCT_NAME}-src.tgz \
-    --exclude ${PRODUCT_NAME}/.git/ --exclude ${PRODUCT_NAME}/.DS_Store/ \
-    --exclude ${PRODUCT_NAME}/.github/ --exclude ${PRODUCT_NAME}/.gitignore/ \
-    --exclude ${PRODUCT_NAME}/.gitmodules/ --exclude ${PRODUCT_NAME}/.travis.yml \
-    --exclude ${PRODUCT_NAME}/skywalking-ui/.git/ --exclude ${PRODUCT_NAME}/skywalking-ui/.DS_Store/ \
-    --exclude ${PRODUCT_NAME}/skywalking-ui/.github/ --exclude ${PRODUCT_NAME}/skywalking-ui/.gitignore/ \
-    --exclude ${PRODUCT_NAME}/skywalking-ui/.travis.yml/ \
-    --exclude ${PRODUCT_NAME}/apm-protocol/apm-network/src/main/proto/.git/ \
-    ${PRODUCT_NAME}
+--exclude ${PRODUCT_NAME}/.git/ --exclude ${PRODUCT_NAME}/.DS_Store/ \
+--exclude ${PRODUCT_NAME}/.github/ --exclude ${PRODUCT_NAME}/.gitignore/ \
+--exclude ${PRODUCT_NAME}/.gitmodules/ --exclude ${PRODUCT_NAME}/.travis.yml \
+--exclude ${PRODUCT_NAME}/skywalking-ui/.git/ --exclude ${PRODUCT_NAME}/skywalking-ui/.DS_Store/ \
+--exclude ${PRODUCT_NAME}/skywalking-ui/.github/ --exclude ${PRODUCT_NAME}/skywalking-ui/.gitignore/ \
+--exclude ${PRODUCT_NAME}/skywalking-ui/.travis.yml/ \
+--exclude ${PRODUCT_NAME}/apm-protocol/apm-network/src/main/proto/.git/ \
+${PRODUCT_NAME}
 
 gpg --armor --detach-sig ${PRODUCT_NAME}-src.tgz
 
-shasum -a 512 ${PRODUCT_NAME}-src.tgz > ${PRODUCT_NAME}-src.tgz.sha512
+shasum -a 512 ${PRODUCT_NAME}-src.tgz >${PRODUCT_NAME}-src.tgz.sha512

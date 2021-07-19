@@ -1,4 +1,5 @@
 * Dependency the toolkit, such as using maven or gradle
+
 ```xml
     <dependency>
          <groupId>org.apache.skywalking</groupId>
@@ -8,6 +9,7 @@
 ```
 
 * set `%tid` in `Pattern` section of logback.xml
+
 ```xml
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
@@ -18,4 +20,5 @@
     </appender>
 ```
 
-* When you use `-javaagent` to active the sky-walking tracer, logback will output **traceId**, if it existed. If the tracer is inactive, the output will be `TID: N/A`.
+* When you use `-javaagent` to active the sky-walking tracer, logback will output **traceId**, if it existed. If the
+  tracer is inactive, the output will be `TID: N/A`.
